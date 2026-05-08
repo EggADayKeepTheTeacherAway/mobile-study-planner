@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import org.classapp.studyplanner.data.local.entity.Assignment
 import org.classapp.studyplanner.data.local.entity.AssignmentWithCourse
+import org.classapp.studyplanner.data.local.entity.Status
 import java.time.LocalDateTime
 
 @Dao
@@ -21,43 +22,54 @@ interface AssignmentDao {
     @Query("SELECT * FROM assignments WHERE id = :id")
     suspend fun getById(id: Int): AssignmentWithCourse?
 
-    @Query("SELECT * FROM assignments WHERE courseId = :courseId")
-    suspend fun getByCourseId(courseId: Int): List<AssignmentWithCourse>
-
-    // Get assignments that deadline before given datetime
-    @Query("SELECT * FROM assignments WHERE deadline <= :deadline")
-    suspend fun getByDeadline(deadline: LocalDateTime): List<AssignmentWithCourse>
-
-    // Same as above but with course filter
     @Query("""
         SELECT * FROM assignments
         WHERE courseId = :courseId
-        AND deadline <= :deadline
+        AND (:status IS NULL OR status = :status)
     """)
-    suspend fun gwtByCourseIdAndDeadline(
-        courseId: Int,
-        deadline: LocalDateTime
+    suspend fun getByCourseId(courseId: Int, status: Status? = null): List<AssignmentWithCourse>
+
+    // Get assignments that deadline before given datetime
+    @Query("""
+        SELECT * FROM assignments
+        WHERE deadline <= :deadline
+        AND (:courseId IS NULL OR courseId = :courseId)
+        AND (:status IS NULL OR status = :status)
+        ORDER BY deadline ASC
+    """)
+    suspend fun getByDeadline(
+        deadline: LocalDateTime,
+        courseId: Int? = null,
+        status: Status? = null
     ): List<AssignmentWithCourse>
 
     // For today, this week ,and next week assignments query by giving time range
     @Query("""
         SELECT * FROM assignments
         WHERE deadline BETWEEN :start AND :end
+        AND (:courseId IS NULL OR courseId = :courseId)
+        AND (:status IS NULL OR status = :status)
         ORDER BY deadline ASC
     """)
     suspend fun getBetween(
         start: LocalDateTime,
-        end: LocalDateTime
+        end: LocalDateTime,
+        courseId: Int? = null,
+        status: Status? = null
     ): List<AssignmentWithCourse>
 
     // Later than a given date
     @Query("""
         SELECT * FROM assignments
         WHERE deadline > :date
+        AND (:courseId IS NULL OR courseId = :courseId)
+        AND (:status IS NULL OR status = :status)
         ORDER BY deadline ASC
     """)
-    suspend fun getAssignmentsAfter(
-        date: LocalDateTime
+    suspend fun getAfter(
+        date: LocalDateTime,
+        courseId: Int? = null,
+        status: Status? = null
     ): List<AssignmentWithCourse>
 
     @Update
