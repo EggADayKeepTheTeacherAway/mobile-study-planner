@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import org.classapp.studyplanner.data.local.dao.AssignmentDao
 import org.classapp.studyplanner.data.local.dao.CourseDao
 import org.classapp.studyplanner.data.local.entity.Assignment
 import org.classapp.studyplanner.data.local.entity.Course
 
 @Database(entities = [Course::class, Assignment::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun courseDao(): CourseDao

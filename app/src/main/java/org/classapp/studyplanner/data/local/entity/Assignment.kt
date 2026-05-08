@@ -32,6 +32,6 @@ data class Assignment(
     // E.g. notification = 1 mean one day before deadline will trigger notification
     val notification: Int? = null,
 
-    val status: String = "Assigned",
-    val priority: String = "Low"
+    val status: Status? = Status.ASSIGNED,
+    val priority: Priority? = Priority.LOW
 )
