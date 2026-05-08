@@ -10,5 +10,5 @@ data class Course(
 
     val courseName: String,
     val courseCode: String,
-    val courseColor: String = "#1dafa1"
+    val courseColor: String? = "#1dafa1"
 )

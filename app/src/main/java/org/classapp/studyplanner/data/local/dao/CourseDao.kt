@@ -28,6 +28,9 @@ interface CourseDao {
     @Update
     suspend fun update(course: Course)
 
+    @Query("DELETE FROM courses WHERE id = :id")
+    suspend fun deleteById(id: Int)
+
     @Delete
-    suspend fun delete()
+    suspend fun delete(course: Course)
 }
