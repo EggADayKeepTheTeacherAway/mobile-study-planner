@@ -5,7 +5,7 @@ import org.classapp.studyplanner.data.local.entity.Course
 
 class CourseRepository(private val courseDao: CourseDao) {
 
-    suspend fun createCourse(name: String, code: String, color: String?) {
+    suspend fun createCourse(name: String, code: String, color: String? = null) {
         courseDao.insert(Course(courseName = name, courseCode = code, courseColor = color))
     }
 
@@ -15,6 +15,10 @@ class CourseRepository(private val courseDao: CourseDao) {
 
     suspend fun getCourseById(id: Int): Course? {
         return courseDao.getById(id)
+    }
+
+    suspend fun updateCourse(course: Course) {
+        courseDao.update(course)
     }
 
     suspend fun removeCourse(course: Course) {
