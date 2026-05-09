@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/navigation_subjects"
+        android:icon="@drawable/twotone_menu_book_24"
+        android:title="@string/subjects" />
+
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/round_add_circle_24"
+        android:title="@string/add_task" />
+
+    <item
+        android:id="@+id/navigation_tasks"
+        android:icon="@drawable/outline_task_alt_24"
+        android:title="@string/tasks" />
+
+    <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/outline_calendar_today_24"
+        android:title="@string/calendar" />
+</menu>
