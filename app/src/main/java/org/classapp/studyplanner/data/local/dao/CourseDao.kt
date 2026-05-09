@@ -20,7 +20,7 @@ interface CourseDao {
     suspend fun getById(id: Int): Course?
 
     @Query("SELECT * FROM courses WHERE courseName = :name")
-    suspend fun getByName(name: Int): List<Course>
+    suspend fun getByName(name: String): List<Course>
 
     @Query("SELECT * FROM courses WHERE courseCode = :code")
     suspend fun getByCode(code: Int): Course?
