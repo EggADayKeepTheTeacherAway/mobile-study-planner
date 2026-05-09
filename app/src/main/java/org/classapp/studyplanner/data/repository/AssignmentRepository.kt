@@ -8,7 +8,6 @@ import org.classapp.studyplanner.data.local.entity.Status
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.Int
 
 class AssignmentRepository(private val assignmentDao: AssignmentDao) {
 
