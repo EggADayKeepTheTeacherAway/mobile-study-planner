@@ -33,5 +33,6 @@ data class Assignment(
     val notification: Int? = null,
 
     val status: Status? = Status.ASSIGNED,
-    val priority: Priority? = Priority.LOW
+    val priority: Priority? = Priority.LOW,
+    val isRead: Boolean = false
 )

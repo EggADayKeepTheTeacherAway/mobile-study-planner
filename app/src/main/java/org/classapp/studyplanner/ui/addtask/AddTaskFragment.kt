@@ -19,6 +19,7 @@ import org.classapp.studyplanner.data.local.entity.Priority
 import org.classapp.studyplanner.data.repository.AssignmentRepository
 import org.classapp.studyplanner.data.repository.CourseRepository
 import org.classapp.studyplanner.databinding.FragmentAddTaskBinding
+import org.classapp.studyplanner.receiver.NotificationScheduler
 import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Locale
@@ -129,14 +130,29 @@ class AddTaskFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                assignmentRepository.createAssignment(
+                val notificationDays = if (binding.switchReminder.isChecked) 1 else null
+                val newId = assignmentRepository.createAssignment(
                     courseId = courseId,
                     title = title,
                     description = description,
                     deadline = deadline,
-                    notification = if (binding.switchReminder.isChecked) 1 else null,
+                    notification = notificationDays,
                     priority = selectedPriority
                 )
+                
+                if (notificationDays != null) {
+                    val assignment = org.classapp.studyplanner.data.local.entity.Assignment(
+                        id = newId.toInt(),
+                        courseId = courseId,
+                        title = title,
+                        description = description,
+                        deadline = deadline,
+                        notification = notificationDays,
+                        priority = selectedPriority
+                    )
+                    NotificationScheduler.scheduleNotification(requireContext(), assignment)
+                }
+
                 Toast.makeText(requireContext(), "Assignment created successfully", Toast.LENGTH_SHORT).show()
                 parentFragmentManager.popBackStack()
             } catch (e: Exception) {

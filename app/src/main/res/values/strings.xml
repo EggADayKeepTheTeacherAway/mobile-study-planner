@@ -76,4 +76,19 @@
     <string name="thu">THU</string>
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
+    <string name="subject_summary_format">%1$d %2$s · %3$d %4$s</string>
+    <string name="good_morning">Good morning 👋</string>
+    <string name="student">Student</string>
+    <string name="weekly_progress">Weekly Progress</string>
+    <string name="progress_summary_format">%1$d of %2$d assignments completed</string>
+    <string name="upcoming_deadlines">Upcoming Deadlines</string>
+    <string name="see_all">See all ></string>
+    <string name="your_subjects">Your Subjects</string>
+    <string name="manage">Manage ></string>
+    <string name="notifications">Notifications</string>
+    <string name="mark_all_read">Mark all read</string>
+    <string name="unread_count_format">%1$d unread</string>
+    <string name="push_notifications">Push Notifications</string>
+    <string name="deadline_reminders_updates">Deadline reminders &amp; updates</string>
+    <string name="done_format">%1$d/%2$d done</string>
 </resources>

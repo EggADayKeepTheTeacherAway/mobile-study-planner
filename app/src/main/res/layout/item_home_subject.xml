@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/border_color"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <View
+            android:id="@+id/viewIconBg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_color_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivSubjectIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/twotone_menu_book_24"
+            app:layout_constraintBottom_toBottomOf="@id/viewIconBg"
+            app:layout_constraintEnd_toEndOf="@id/viewIconBg"
+            app:layout_constraintStart_toStartOf="@id/viewIconBg"
+            app:layout_constraintTop_toTopOf="@id/viewIconBg"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/tvSubjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/viewIconBg"
+            tools:text="Mathematics" />
+
+        <TextView
+            android:id="@+id/tvSubjectStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/inactive_grey"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubjectName"
+            tools:text="2/4 done" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:progress="50"
+            app:indicatorColor="@color/cgreen"
+            app:layout_constraintTop_toBottomOf="@id/tvSubjectStats"
+            app:trackColor="@color/light_gray"
+            app:trackCornerRadius="2dp"
+            app:trackThickness="4dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,5 +1,6 @@
 package org.classapp.studyplanner.ui.calendar
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater

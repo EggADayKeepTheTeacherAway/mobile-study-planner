@@ -1,9 +1,13 @@
 package org.classapp.studyplanner
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -19,10 +23,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavigation: BottomNavigationView
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (!isGranted) {
+            Toast.makeText(this, "Notifications disabled. You won't receive deadline reminders.", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        checkNotificationPermission()
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
@@ -49,39 +63,39 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    Toast.makeText(this, "Home selected", Toast.LENGTH_SHORT).show()
                     replaceFragment(HomeFragment())
                     true
                 }
-
                 R.id.navigation_calendar -> {
-                    Toast.makeText(this, "Calendar selected", Toast.LENGTH_SHORT).show()
                     replaceFragment(CalendarFragment())
                     true
                 }
-
                 R.id.navigation_add -> {
-                    Toast.makeText(this, "Add selected", Toast.LENGTH_SHORT).show()
                     replaceFragment(AddTaskFragment())
                     true
                 }
-
                 R.id.navigation_subjects -> {
-                    Toast.makeText(this, "Subjects selected", Toast.LENGTH_SHORT).show()
                     replaceFragment(SubjectFragment())
                     true
                 }
-
                 R.id.navigation_tasks -> {
-                    Toast.makeText(this, "Tasks selected", Toast.LENGTH_SHORT).show()
                     replaceFragment(TaskFragment())
                     true
                 }
-
                 else -> false
             }
         }
         replaceFragment(HomeFragment())
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
     }
 
     private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {

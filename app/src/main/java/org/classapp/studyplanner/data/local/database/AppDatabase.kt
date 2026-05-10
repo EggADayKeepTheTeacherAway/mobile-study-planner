@@ -10,7 +10,7 @@ import org.classapp.studyplanner.data.local.dao.CourseDao
 import org.classapp.studyplanner.data.local.entity.Assignment
 import org.classapp.studyplanner.data.local.entity.Course
 
-@Database(entities = [Course::class, Assignment::class], version = 1)
+@Database(entities = [Course::class, Assignment::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -27,7 +27,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration(false)
+                    .build()
 
                 INSTANCE = instance
                 instance

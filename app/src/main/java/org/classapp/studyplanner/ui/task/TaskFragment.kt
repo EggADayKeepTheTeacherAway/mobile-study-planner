@@ -18,6 +18,7 @@ import org.classapp.studyplanner.data.local.entity.Status
 import org.classapp.studyplanner.data.repository.AssignmentRepository
 import org.classapp.studyplanner.data.repository.CourseRepository
 import org.classapp.studyplanner.databinding.FragmentTaskBinding
+import org.classapp.studyplanner.receiver.NotificationScheduler
 
 class TaskFragment : Fragment() {
 
@@ -32,16 +33,19 @@ class TaskFragment : Fragment() {
     private var subjectId: Int = -1
     private var priorityFilter: Priority? = null
     private var statusFilter: Status? = null
+    private var filterUpcoming: Boolean = false
 
     enum class FilterType { THIS_WEEK, NEXT_WEEK, LATER }
 
     companion object {
         private const val ARG_SUBJECT_ID = "subject_id"
+        private const val ARG_FILTER_UPCOMING = "filter_upcoming"
 
-        fun newInstance(subjectId: Int = -1): TaskFragment {
+        fun newInstance(subjectId: Int = -1, filterUpcoming: Boolean = false): TaskFragment {
             val fragment = TaskFragment()
             val args = Bundle()
             args.putInt(ARG_SUBJECT_ID, subjectId)
+            args.putBoolean(ARG_FILTER_UPCOMING, filterUpcoming)
             fragment.arguments = args
             return fragment
         }
@@ -50,6 +54,11 @@ class TaskFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         subjectId = arguments?.getInt(ARG_SUBJECT_ID) ?: -1
+        filterUpcoming = arguments?.getBoolean(ARG_FILTER_UPCOMING) ?: false
+        
+        if (filterUpcoming) {
+            currentFilter = FilterType.THIS_WEEK // Default starting point, but logic will override
+        }
     }
 
     override fun onCreateView(
@@ -174,21 +183,31 @@ class TaskFragment : Fragment() {
 
     private fun fetchTasks() {
         viewLifecycleOwner.lifecycleScope.launch {
-            var tasks = when (currentFilter) {
-                FilterType.THIS_WEEK -> assignmentRepository.getThisWeekAssignments(if (subjectId != -1) subjectId else null)
-                FilterType.NEXT_WEEK -> assignmentRepository.getNextWeekAssignments(if (subjectId != -1) subjectId else null)
-                FilterType.LATER -> assignmentRepository.getLaterAssignments(if (subjectId != -1) subjectId else null)
+            var tasks = if (filterUpcoming) {
+                // Fetch assignments due in the next 7 days
+                val next7Days = java.time.LocalDateTime.now().plusDays(7)
+                assignmentRepository.getAssignmentsDeadlineBefore(next7Days)
+                    .filter { it.assignment.deadline?.isAfter(java.time.LocalDateTime.now().minusMinutes(1)) ?: true }
+            } else {
+                when (currentFilter) {
+                    FilterType.THIS_WEEK -> assignmentRepository.getThisWeekAssignments(if (subjectId != -1) subjectId else null)
+                    FilterType.NEXT_WEEK -> assignmentRepository.getNextWeekAssignments(if (subjectId != -1) subjectId else null)
+                    FilterType.LATER -> assignmentRepository.getLaterAssignments(if (subjectId != -1) subjectId else null)
+                }
             }
             
-            // Apply manual filters
+            // If subjectId is set (detail page), further filter by subject
+            if (subjectId != -1) {
+                tasks = tasks.filter { it.course.id == subjectId }
+            }
             if (priorityFilter != null) {
                 tasks = tasks.filter { it.assignment.priority == priorityFilter }
             }
             if (statusFilter != null) {
-                if (statusFilter == Status.ASSIGNED) {
-                    tasks = tasks.filter { it.assignment.status != Status.TURNED_IN }
+                tasks = if (statusFilter == Status.ASSIGNED) {
+                    tasks.filter { it.assignment.status != Status.TURNED_IN }
                 } else {
-                    tasks = tasks.filter { it.assignment.status == statusFilter }
+                    tasks.filter { it.assignment.status == statusFilter }
                 }
             }
             
@@ -209,6 +228,13 @@ class TaskFragment : Fragment() {
                 status = if (isChecked) Status.TURNED_IN else Status.WORKING
             )
             assignmentRepository.updateAssignment(updatedAssignment)
+            
+            if (isChecked) {
+                NotificationScheduler.cancelNotification(requireContext(), item.assignment.id)
+            } else if (item.assignment.notification != null) {
+                NotificationScheduler.scheduleNotification(requireContext(), updatedAssignment)
+            }
+
             fetchTasks() // Refresh list
         }
     }

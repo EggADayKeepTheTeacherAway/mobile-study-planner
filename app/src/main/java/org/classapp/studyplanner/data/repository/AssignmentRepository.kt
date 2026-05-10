@@ -18,7 +18,7 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         deadline: LocalDateTime?,
         notification: Int?,
         priority: Priority?
-    ) {
+    ): Long {
         if (deadline != null) {
             if (deadline <= LocalDateTime.now()) {
                 throw IllegalArgumentException("Deadline must be after now")
@@ -29,7 +29,7 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
                 throw IllegalArgumentException("Notification must be positive integer")
             }
         }
-        assignmentDao.insert(Assignment(
+        return assignmentDao.insert(Assignment(
             courseId = courseId,
             title = title,
             description = description,
@@ -124,5 +124,13 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
 
     suspend fun deleteAssignment(assignment: Assignment) {
         assignmentDao.delete(assignment)
+    }
+
+    suspend fun markAllAsRead() {
+        assignmentDao.markAllAsRead()
+    }
+
+    suspend fun markAsRead(id: Int) {
+        assignmentDao.markAsRead(id)
     }
 }

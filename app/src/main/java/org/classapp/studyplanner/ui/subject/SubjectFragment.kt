@@ -79,13 +79,20 @@ class SubjectFragment : Fragment() {
             }
             
             adapter.submitList(subjectWithStats)
+
+            val totalSubjects = subjectWithStats.size
+            val totalAssignments = subjectWithStats.sumOf { it.totalAssignments }
+            binding.tvSubjectSummary.text = getString(
+                R.string.subject_summary_format,
+                totalSubjects,
+                if (totalSubjects == 1) "subject" else "subjects",
+                totalAssignments,
+                if (totalAssignments == 1) "assignment" else "assignments"
+            )
             
             if (subjectWithStats.isEmpty()) {
-                binding.tvDebugSubjects.visibility = View.VISIBLE
-                binding.tvDebugSubjects.text = "No subjects found."
                 binding.rvSubjects.visibility = View.GONE
             } else {
-                binding.tvDebugSubjects.visibility = View.GONE
                 binding.rvSubjects.visibility = View.VISIBLE
             }
         }

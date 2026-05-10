@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 interface AssignmentDao {
 
     @Insert
-    suspend fun insert(assignment: Assignment)
+    suspend fun insert(assignment: Assignment): Long
 
     @Query("SELECT * FROM assignments")
     suspend fun getAll(): List<AssignmentWithCourse>
@@ -80,4 +80,10 @@ interface AssignmentDao {
 
     @Delete
     suspend fun delete(assignment: Assignment)
+
+    @Query("UPDATE assignments SET isRead = 1")
+    suspend fun markAllAsRead()
+
+    @Query("UPDATE assignments SET isRead = 1 WHERE id = :id")
+    suspend fun markAsRead(id: Int)
 }
