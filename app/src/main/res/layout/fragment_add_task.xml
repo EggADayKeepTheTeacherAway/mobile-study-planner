@@ -1,14 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addtask.AddTaskFragment">
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/add_task_fragment"
-        android:textSize="36sp" />
+        android:layout_height="wrap_content"
+        android:padding="20dp">
 
-</FrameLayout>
+        <!-- Header -->
+
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_assignment"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Subject -->
+        <ImageView
+            android:id="@+id/ivSubject"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/subject_icon"
+            android:src="@drawable/twotone_menu_book_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHeader"
+            app:tint="@color/cgreen" />
+
+        <TextView
+            android:id="@+id/tvSubjectLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/subject"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivSubject"
+            app:layout_constraintStart_toEndOf="@+id/ivSubject"
+            app:layout_constraintTop_toTopOf="@+id/ivSubject" />
+
+        <Spinner
+            android:id="@+id/spinnerSubject"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded_field"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubjectLabel"
+            tools:ignore="RtlSymmetry" />
+
+        <!-- Assignment Title -->
+        <ImageView
+            android:id="@+id/ivTitle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/assignment_title_icon"
+            android:src="@drawable/ic_assignment_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSubject" />
+
+        <TextView
+            android:id="@+id/tvTitleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/assignment_title"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTitle"
+            app:layout_constraintStart_toEndOf="@+id/ivTitle"
+            app:layout_constraintTop_toTopOf="@+id/ivTitle" />
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:hint="@string/title_hint"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleLabel" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvDescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/description_optional"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etTitle" />
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:gravity="top"
+            android:hint="@string/description_hint"
+            android:inputType="textMultiLine"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescriptionLabel" />
+
+        <!-- Deadline -->
+        <ImageView
+            android:id="@+id/ivDeadline"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/deadline_icon"
+            android:src="@drawable/outline_calendar_today_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDescription"
+            app:tint="@color/cgreen" />
+
+        <TextView
+            android:id="@+id/tvDeadlineLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/deadline"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDeadline"
+            app:layout_constraintStart_toEndOf="@+id/ivDeadline"
+            app:layout_constraintTop_toTopOf="@+id/ivDeadline" />
+
+        <EditText
+            android:id="@+id/etDeadline"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:drawableEnd="@drawable/outline_calendar_today_24"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/black"
+            android:focusable="false"
+            android:hint="@string/date_format_hint"
+            android:inputType="date"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDeadlineLabel" />
+
+        <!-- Time -->
+        <ImageView
+            android:id="@+id/ivTime"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/time_icon"
+            android:src="@drawable/ic_access_time_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDeadline" />
+
+        <TextView
+            android:id="@+id/tvTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/time_optional"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTime"
+            app:layout_constraintStart_toEndOf="@+id/ivTime"
+            app:layout_constraintTop_toTopOf="@+id/ivTime" />
+
+        <!-- Priority -->
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:drawableEnd="@drawable/ic_access_time_24"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/black"
+            android:focusable="false"
+            android:hint="@string/time_format_hint"
+            android:inputType="time"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTimeLabel" />
+
+        <ImageView
+            android:id="@+id/ivPriority"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/priority_icon"
+            android:src="@drawable/ic_flag_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etTime" />
+
+        <TextView
+            android:id="@+id/tvPriorityLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/priority"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPriority"
+            app:layout_constraintStart_toEndOf="@+id/ivPriority"
+            app:layout_constraintTop_toTopOf="@+id/ivPriority" />
+
+        <LinearLayout
+            android:id="@+id/layoutPriority"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPriorityLabel">
+
+            <Button
+                android:id="@+id/btnPriorityLow"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_priority_low"
+                android:text="@string/low"
+                android:textAllCaps="false"
+                android:textColor="@color/low_priority_text"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/btnPriorityMedium"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_priority_medium"
+                android:text="@string/medium"
+                android:textAllCaps="false"
+                android:textColor="@color/medium_priority_text"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/btnPriorityHigh"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_priority_high"
+                android:text="@string/high"
+                android:textAllCaps="false"
+                android:textColor="@color/high_priority_text"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+
+        <!-- Reminder Section -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_rounded_field"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPriority">
+
+            <TextView
+                android:id="@+id/tvReminderLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_reminder"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvReminderSubLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/get_notified_before_the_deadline"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvReminderLabel" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchReminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:thumbTint="@color/switch_thumb_selector"
+                app:trackTint="@color/switch_track_selector" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Create Button -->
+        <Button
+            android:id="@+id/btnCreateAssignment"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_primary"
+            android:text="@string/create_assignment"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutReminder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

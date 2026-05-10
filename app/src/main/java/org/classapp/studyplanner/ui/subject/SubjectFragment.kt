@@ -1,18 +1,94 @@
 package org.classapp.studyplanner.ui.subject
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import org.classapp.studyplanner.R
+import org.classapp.studyplanner.data.local.database.AppDatabase
+import org.classapp.studyplanner.data.local.entity.Status
+import org.classapp.studyplanner.data.repository.AssignmentRepository
+import org.classapp.studyplanner.data.repository.CourseRepository
+import org.classapp.studyplanner.databinding.FragmentSubjectBinding
 
 class SubjectFragment : Fragment() {
+
+    private var _binding: FragmentSubjectBinding? = null
+    private val binding get() = _binding!!
+    
+    private lateinit var courseRepository: CourseRepository
+    private lateinit var assignmentRepository: AssignmentRepository
+    private lateinit var adapter: SubjectAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subject, container, false)
+    ): View {
+        _binding = FragmentSubjectBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val db = AppDatabase.getDatabase(requireContext())
+        courseRepository = CourseRepository(db.courseDao())
+        assignmentRepository = AssignmentRepository(db.assignmentDao())
+
+        setupRecyclerView()
+        setupListeners()
+        fetchData()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = SubjectAdapter { course ->
+            // Handle click to view assignments for this course
+        }
+        binding.rvSubjects.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSubjects.adapter = adapter
+    }
+
+    private fun setupListeners() {
+        binding.btnAddSubject.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_container, AddSubjectFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    private fun fetchData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val courses = courseRepository.getCourses()
+            val subjectWithStats = courses.map { course ->
+                val assignments = assignmentRepository.getAssignmentsByCourse(course.id)
+                val completed = assignments.count { it.assignment.status == Status.TURNED_IN }
+                SubjectWithStats(
+                    course = course,
+                    totalAssignments = assignments.size,
+                    completedAssignments = completed
+                )
+            }
+            
+            adapter.submitList(subjectWithStats)
+            
+            if (subjectWithStats.isEmpty()) {
+                binding.tvDebugSubjects.visibility = View.VISIBLE
+                binding.tvDebugSubjects.text = "No subjects found."
+                binding.rvSubjects.visibility = View.GONE
+            } else {
+                binding.tvDebugSubjects.visibility = View.GONE
+                binding.rvSubjects.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

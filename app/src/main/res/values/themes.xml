@@ -2,9 +2,27 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.StudyPlanner" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimary">@color/cgreen</item>
         <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- DatePicker and TimePicker styles -->
+        <item name="android:datePickerDialogTheme">@style/Theme.StudyPlanner.PickerDialog</item>
+        <item name="android:timePickerDialogTheme">@style/Theme.StudyPlanner.PickerDialog</item>
+    </style>
+
+    <style name="Theme.StudyPlanner.PickerDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/cgreen</item>
+        <item name="android:colorAccent">@color/cgreen</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Theme.StudyPlanner.DialogButton</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Theme.StudyPlanner.DialogButton</item>
+    </style>
+
+    <style name="Theme.StudyPlanner.DialogButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/cgreen</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Theme.StudyPlanner" parent="Base.Theme.StudyPlanner" />
