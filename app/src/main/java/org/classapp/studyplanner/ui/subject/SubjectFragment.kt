@@ -14,6 +14,7 @@ import org.classapp.studyplanner.data.local.entity.Status
 import org.classapp.studyplanner.data.repository.AssignmentRepository
 import org.classapp.studyplanner.data.repository.CourseRepository
 import org.classapp.studyplanner.databinding.FragmentSubjectBinding
+import org.classapp.studyplanner.ui.task.TaskFragment
 
 class SubjectFragment : Fragment() {
 
@@ -46,7 +47,10 @@ class SubjectFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = SubjectAdapter { course ->
-            // Handle click to view assignments for this course
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.frame_container, TaskFragment.newInstance(course.id))
+                .addToBackStack(null)
+                .commit()
         }
         binding.rvSubjects.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSubjects.adapter = adapter
