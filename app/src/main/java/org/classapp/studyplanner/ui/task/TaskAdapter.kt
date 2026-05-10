@@ -59,9 +59,9 @@ class TaskAdapter(private val onTaskStatusChanged: (AssignmentWithCourse, Boolea
             val date = deadline.toLocalDate()
             val today = LocalDate.now()
             
-            val deadlineText = when {
-                date == today -> holder.itemView.context.getString(R.string.today)
-                date == today.plusDays(1) -> holder.itemView.context.getString(R.string.tomorrow)
+            val deadlineText = when (date) {
+                today -> holder.itemView.context.getString(R.string.today)
+                today.plusDays(1) -> holder.itemView.context.getString(R.string.tomorrow)
                 else -> date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
             }
             holder.binding.tvDeadline.text = deadlineText

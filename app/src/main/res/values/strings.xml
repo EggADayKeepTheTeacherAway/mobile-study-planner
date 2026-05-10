@@ -67,4 +67,13 @@
     <string name="dropdown_menu_icon">Dropdown Menu Icon</string>
     <string name="_2_remaining">2 remaining</string>
     <string name="view_assignments"><![CDATA[View assignments >]]></string>
+    <string name="previous_month">Previous Month</string>
+    <string name="next_month">Next Month</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
 </resources>
