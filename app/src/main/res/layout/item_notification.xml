@@ -30,6 +30,7 @@
             android:id="@+id/ivNotifyIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/alert_icon"
             android:src="@drawable/ic_error_24"
             app:layout_constraintBottom_toBottomOf="@id/viewIconBg"
             app:layout_constraintEnd_toEndOf="@id/viewIconBg"

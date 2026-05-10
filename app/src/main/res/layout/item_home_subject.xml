@@ -28,6 +28,7 @@
             android:id="@+id/ivSubjectIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/book_subject_icon"
             android:src="@drawable/twotone_menu_book_24"
             app:layout_constraintBottom_toBottomOf="@id/viewIconBg"
             app:layout_constraintEnd_toEndOf="@id/viewIconBg"

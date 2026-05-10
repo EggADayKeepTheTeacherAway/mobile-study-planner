@@ -1,7 +1,6 @@
 package org.classapp.studyplanner.ui.home
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.toColorInt
@@ -41,7 +40,7 @@ class HomeSubjectAdapter(private val onCourseClick: (Course) -> Unit) :
             val color = (course.courseColor ?: "#1dafa1").toColorInt()
             holder.binding.viewIconBg.backgroundTintList = ColorStateList.valueOf(color)
             holder.binding.progressSubject.setIndicatorColor(color)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             // Fallback
         }
 

@@ -57,7 +57,12 @@ class AlarmReceiver : BroadcastReceiver() {
 
         with(NotificationManagerCompat.from(context)) {
             // notificationId is a unique int for each notification that you must define
-            notify(id, builder.build())
+            try {
+                notify(id, builder.build())
+            } catch (e: SecurityException) {
+                // Handle the case where notification permission is not granted
+                e.printStackTrace()
+            }
         }
     }
 }

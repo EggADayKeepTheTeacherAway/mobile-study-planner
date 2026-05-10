@@ -43,10 +43,6 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         return assignmentDao.getAll()
     }
 
-    suspend fun getAssignmentById(id: Int): AssignmentWithCourse? {
-        return assignmentDao.getById(id)
-    }
-
     suspend fun getAssignmentsByCourse(
         courseId: Int,
         status: Status? = null
@@ -92,20 +88,6 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         return assignmentDao.getAfter(later, courseId, status)
     }
 
-    // Get today assignment by default
-    suspend fun getAssignmentsDeadlineAt(
-        date: LocalDate = LocalDate.now(),
-        courseId: Int? = null,
-        status: Status? = null
-    ): List<AssignmentWithCourse> {
-        return assignmentDao.getBetween(
-            date.atStartOfDay(),
-            date.atTime(23, 59, 59),
-            courseId,
-            status
-        )
-    }
-
     suspend fun getAssignmentsDeadlineBefore(
         date: LocalDateTime = LocalDate.now().atTime(23, 59, 59),
         courseId: Int? = null,
@@ -116,14 +98,6 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
 
     suspend fun updateAssignment(assignment: Assignment) {
         assignmentDao.update(assignment)
-    }
-
-    suspend fun deleteAssignment(id: Int) {
-        assignmentDao.deleteById(id)
-    }
-
-    suspend fun deleteAssignment(assignment: Assignment) {
-        assignmentDao.delete(assignment)
     }
 
     suspend fun markAllAsRead() {

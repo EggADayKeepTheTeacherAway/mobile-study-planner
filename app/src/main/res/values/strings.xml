@@ -86,9 +86,13 @@
     <string name="your_subjects">Your Subjects</string>
     <string name="manage">Manage ></string>
     <string name="notifications">Notifications</string>
-    <string name="mark_all_read">Mark all read</string>
+    <string name="mark_all_read">Mark all as read</string>
     <string name="unread_count_format">%1$d unread</string>
     <string name="push_notifications">Push Notifications</string>
     <string name="deadline_reminders_updates">Deadline reminders &amp; updates</string>
     <string name="done_format">%1$d/%2$d done</string>
+    <string name="_2_unread">2 unread</string>
+    <string name="ring_icon">Ring Icon</string>
+    <string name="deadline_reminders_amp_updates"><![CDATA[Deadline reminders & updates]]></string>
+    <string name="alert_icon">Alert Icon</string>
 </resources>

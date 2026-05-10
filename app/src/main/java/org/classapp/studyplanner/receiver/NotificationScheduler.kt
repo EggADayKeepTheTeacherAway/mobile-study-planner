@@ -62,19 +62,12 @@ object NotificationScheduler {
                     pendingIntent
                 )
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        } else
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 triggerAtMillis,
                 pendingIntent
             )
-        } else {
-            alarmManager.setExact(
-                AlarmManager.RTC_WAKEUP,
-                triggerAtMillis,
-                pendingIntent
-            )
-        }
     }
 
     fun cancelNotification(context: Context, assignmentId: Int) {
