@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <!-- Header -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_rounded_field"
+            android:contentDescription="@string/back"
+            android:src="@drawable/ic_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/new_subject"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+        <!-- Subject Name -->
+        <ImageView
+            android:id="@+id/ivSubject"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/subject_icon"
+            android:src="@drawable/twotone_menu_book_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack"
+            app:tint="@color/cgreen" />
+
+        <TextView
+            android:id="@+id/tvSubjectLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/subject"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivSubject"
+            app:layout_constraintStart_toEndOf="@+id/ivSubject"
+            app:layout_constraintTop_toTopOf="@+id/ivSubject" />
+
+        <EditText
+            android:id="@+id/etSubjectName"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:hint="@string/subject_name"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubjectLabel" />
+
+        <!-- Subject Code -->
+        <ImageView
+            android:id="@+id/ivCode"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/assignment_title_icon"
+            android:src="@drawable/ic_assignment_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSubjectName" />
+
+        <TextView
+            android:id="@+id/tvCodeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/subject_code"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCode"
+            app:layout_constraintStart_toEndOf="@+id/ivCode"
+            app:layout_constraintTop_toTopOf="@+id/ivCode" />
+
+        <EditText
+            android:id="@+id/etSubjectCode"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints=""
+            android:background="@drawable/bg_rounded_field"
+            android:hint="@string/subject_code_example"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCodeLabel" />
+
+        <!-- Color Picker -->
+        <ImageView
+            android:id="@+id/ivColor"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@string/color_icon"
+            android:src="@drawable/ic_palette_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSubjectCode" />
+
+        <TextView
+            android:id="@+id/tvColorLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/pick_color"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivColor"
+            app:layout_constraintStart_toEndOf="@+id/ivColor"
+            app:layout_constraintTop_toTopOf="@+id/ivColor" />
+
+        <LinearLayout
+            android:id="@+id/layoutColors"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvColorLabel">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/colorRed"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/red"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_red"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorBlue"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/blue"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_blue"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorGreen"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/green"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_green"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorYellow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/yellow"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_yellow"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/colorPurple"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/purple"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_purple"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorOrange"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/orange"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_orange"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorPink"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/pink"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_pink"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+
+                <ImageView
+                    android:id="@+id/colorTeal"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/teal"
+                    android:background="@drawable/ic_color_circle"
+                    android:backgroundTint="@color/subject_teal"
+                    android:padding="8dp"
+                    android:scaleType="centerInside" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Create Button -->
+        <Button
+            android:id="@+id/btnCreateSubject"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_button_primary"
+            android:text="@string/create_subject"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutColors" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

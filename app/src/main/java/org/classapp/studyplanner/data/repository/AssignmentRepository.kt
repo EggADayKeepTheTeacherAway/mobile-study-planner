@@ -18,7 +18,7 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         deadline: LocalDateTime?,
         notification: Int?,
         priority: Priority?
-    ) {
+    ): Long {
         if (deadline != null) {
             if (deadline <= LocalDateTime.now()) {
                 throw IllegalArgumentException("Deadline must be after now")
@@ -29,7 +29,7 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
                 throw IllegalArgumentException("Notification must be positive integer")
             }
         }
-        assignmentDao.insert(Assignment(
+        return assignmentDao.insert(Assignment(
             courseId = courseId,
             title = title,
             description = description,
@@ -41,10 +41,6 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
 
     suspend fun getAllAssignments(): List<AssignmentWithCourse> {
         return assignmentDao.getAll()
-    }
-
-    suspend fun getAssignmentById(id: Int): AssignmentWithCourse? {
-        return assignmentDao.getById(id)
     }
 
     suspend fun getAssignmentsByCourse(
@@ -92,20 +88,6 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         return assignmentDao.getAfter(later, courseId, status)
     }
 
-    // Get today assignment by default
-    suspend fun getAssignmentsDeadlineAt(
-        date: LocalDate = LocalDate.now(),
-        courseId: Int? = null,
-        status: Status? = null
-    ): List<AssignmentWithCourse> {
-        return assignmentDao.getBetween(
-            date.atStartOfDay(),
-            date.atTime(23, 59, 59),
-            courseId,
-            status
-        )
-    }
-
     suspend fun getAssignmentsDeadlineBefore(
         date: LocalDateTime = LocalDate.now().atTime(23, 59, 59),
         courseId: Int? = null,
@@ -118,11 +100,11 @@ class AssignmentRepository(private val assignmentDao: AssignmentDao) {
         assignmentDao.update(assignment)
     }
 
-    suspend fun deleteAssignment(id: Int) {
-        assignmentDao.deleteById(id)
+    suspend fun markAllAsRead() {
+        assignmentDao.markAllAsRead()
     }
 
-    suspend fun deleteAssignment(assignment: Assignment) {
-        assignmentDao.delete(assignment)
+    suspend fun markAsRead(id: Int) {
+        assignmentDao.markAsRead(id)
     }
 }

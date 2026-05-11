@@ -1,9 +1,43 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.StudyPlanner" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/cgreen</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- DatePicker and TimePicker styles -->
+        <item name="android:datePickerDialogTheme">@style/Theme.StudyPlanner.PickerDialog</item>
+        <item name="android:timePickerDialogTheme">@style/Theme.StudyPlanner.PickerDialog</item>
+    </style>
+
+    <style name="Theme.StudyPlanner.PickerDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/cgreen</item>
+        <item name="android:colorAccent">@color/cgreen</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Theme.StudyPlanner.DialogButton</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Theme.StudyPlanner.DialogButton</item>
+    </style>
+
+    <style name="Theme.StudyPlanner.DialogButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/cgreen</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Theme.StudyPlanner" parent="Base.Theme.StudyPlanner" />
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/cgreen</item>
+    </style>
+
+    <style name="CalendarDayOfWeekStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/inactive_grey</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

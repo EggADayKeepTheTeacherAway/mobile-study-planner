@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 30% alpha for cgreen when checked -->
+    <item android:alpha="0.3" android:color="@color/cgreen" android:state_checked="true" />
+    <!-- 30% alpha for inactive_grey when unchecked -->
+    <item android:alpha="0.3" android:color="@color/inactive_grey" android:state_checked="false" />
+</selector>
